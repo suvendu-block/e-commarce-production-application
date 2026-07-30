@@ -1,0 +1,25 @@
+import express from 'express';
+import dotenv from 'dotenv'
+import {connectDB} from './config/db.js';
+import { notFound, errorHandler } from './middleware/error.middleware.js';
+import authRoutes from './routes/auth.routes.js'
+
+const app = express();
+dotenv.config();
+app.use(express.json());
+
+const PORT = process.env.PORT || 5000
+
+// 1. Request enters → /api/auth/* routes
+app.use('/api/auth', authRoutes);
+
+// 2. No matching route → 404
+app.use(notFound);
+
+// 3. Any error thrown along the way → caught here
+app.use(errorHandler);
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+    connectDB();
+})
