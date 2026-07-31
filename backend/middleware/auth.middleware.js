@@ -23,7 +23,7 @@ const protect = async (req, res, next) => {
 // Requires that protect already ran and req.user.isAdmin === true
 const admin = (req, res, next) => {
     if (req.user && req.user.isAdmin) return next();
-    res.status(401).json({ message: 'Not authorized as admin' });
+    res.status(403).json({ message: 'Not authorized as admin' });
 };
 
 export { protect, admin };
