@@ -4,6 +4,19 @@ import {connectDB} from './config/db.js';
 import { notFound, errorHandler } from './middleware/error.middleware.js';
 import authRoutes from './routes/auth.routes.js'
 import productRoutes from './routes/product.routes.js';
+import orderRoutes from './routes/order.routes.js';
+
+
+
+
+
+
+
+
+
+
+
+
 
 const app = express();
 dotenv.config();
@@ -11,9 +24,27 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5000
 
+
+
+
+
+
+
+
+
+
 // 1. Request enters → /api/auth/* routes
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
+
+
+
+
+
+
+
+
 
 // 2. No matching route → 404
 app.use(notFound);

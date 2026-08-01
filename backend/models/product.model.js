@@ -85,4 +85,6 @@ productSchema.pre('validate', async function () {
     }
 });
 
+
+
 export default mongoose.model('Product', productSchema);
