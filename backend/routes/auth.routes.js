@@ -6,6 +6,7 @@ import {
     updateUserProfile
 } from '../controllers/auth.controller.js'
 import { protect } from '../middleware/auth.middleware.js'
+import rateLimiter from '../middleware/rateLimiter.middleware.js'
 import { registerSchema, loginSchema, updateProfileSchema } from '../validators/auth.validators.js';
 
 const router = express.Router();
@@ -22,9 +23,9 @@ const validate = (schema) => (req, res, next) => {
 };
 
 // Request flow: validate body → run controller
-router.post('/register', validate(registerSchema), registerUser);
-router.post('/login', validate(loginSchema), loginUser);
+router.post('/register', rateLimiter(), validate(registerSchema), registerUser);
+router.post('/login', rateLimiter(), validate(loginSchema), loginUser);
 // /profile requires a valid JWT (protect) before accessing the controller
-router.route('/profile').get(protect, getUserProfile).put(protect, validate(updateProfileSchema), updateUserProfile);
+router.route('/profile').get(protect, rateLimiter(), getUserProfile).put(protect, rateLimiter(), validate(updateProfileSchema), updateUserProfile);
 
 export default router;

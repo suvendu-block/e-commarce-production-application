@@ -5,6 +5,8 @@ import { notFound, errorHandler } from './middleware/error.middleware.js';
 import authRoutes from './routes/auth.routes.js'
 import productRoutes from './routes/product.routes.js';
 import orderRoutes from './routes/order.routes.js';
+import userRoutes from './routes/user.routes.js';
+import uploadRoutes from './routes/upload.routes.js';
 
 
 
@@ -37,6 +39,8 @@ const PORT = process.env.PORT || 5000
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/upload', uploadRoutes);
 
 
 
@@ -51,6 +55,8 @@ app.use(notFound);
 
 // 3. Any error thrown along the way → caught here
 app.use(errorHandler);
+
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
