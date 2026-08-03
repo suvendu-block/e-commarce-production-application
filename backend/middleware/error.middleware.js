@@ -8,7 +8,7 @@ const notFound = (req, res, next) => {
 // Central error handler — normalizes Mongoose/JWT errors into JSON responses
 // Stack trace shown only in development
 const errorHandler = (err, req, res, next) => {
-    let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+    let statusCode = err.status || err.statusCode || (res.statusCode === 200 ? 500 : res.statusCode);
     let message = err.message;
 
     if (err.name === 'CastError' && err.kind === 'ObjectId') {

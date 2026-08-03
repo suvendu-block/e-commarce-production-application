@@ -10,9 +10,13 @@ import Order from '../models/order.model.js';
 import { sendOrderConfirmationEmail } from '../service/email.service.js';
 
 const test = async () => {
+    const recipient = process.argv[2] || 'john@example.com';
     await connectDB();
 
-    const user = await User.findOne({ email: 'john@example.com' });
+    let user = await User.findOne({ email: recipient });
+    if (!user) {
+        user = { _id: new mongoose.Types.ObjectId(), name: 'Test User', email: recipient };
+    }
     const product = await Product.findOne({});
 
     const order = await Order.create({

@@ -27,11 +27,15 @@ const getProducts = asyncHandler(async (req, res) => {
         filter.category = req.query.category;
     }
 
-    if (req.query.minPrice || req.query.maxPrice) {
-        filter.price = {}
+    const minPrice = Number(req.query.minPrice);
+    const maxPrice = Number(req.query.maxPrice);
+    const hasMin = Number.isFinite(minPrice);
+    const hasMax = Number.isFinite(maxPrice);
 
-        if (req.query.minPrice) filter.price.$gte = Number(req.query.minPrice);
-        if (req.query.maxPrice) filter.price.$lte = Number(req.query.maxPrice);
+    if (hasMin || hasMax) {
+        filter.price = {}
+        if (hasMin) filter.price.$gte = minPrice;
+        if (hasMax) filter.price.$lte = maxPrice;
     }
 
     // Count first (for total pages), then fetch one page
@@ -87,6 +91,8 @@ const updateProduct = asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
 
     if (product) {
+        const nameChanged = req.body.name && req.body.name !== product.name;
+
         // ?? keeps values like 0 instead of falling back to the old value
         product.name = req.body.name ?? product.name;
         product.price = req.body.price ?? product.price;
@@ -96,8 +102,8 @@ const updateProduct = asyncHandler(async (req, res) => {
         product.category = req.body.category ?? product.category;
         product.countInStock = req.body.countInStock ?? product.countInStock
 
-        // Keep slug in sync if the name changed
-        if (req.body.name && req.body.name != product.name) {
+        // Keep slug in sync if the name changed (checked BEFORE assignment)
+        if (nameChanged) {
             product.slug = slugify(req.body.name);
         }
 

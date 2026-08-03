@@ -30,6 +30,7 @@ router.post('/', protect, admin, (req, res) => {
             });
             res.status(201).json({ url: result.secure_url, publicId: result.public_id });
         } catch (error) {
+            console.error('Upload failed:', JSON.stringify(error.error || error.message || error));
             res.status(500).json({ message: 'Upload failed' });
         }
     });
