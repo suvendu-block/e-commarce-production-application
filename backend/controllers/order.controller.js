@@ -1,6 +1,7 @@
 import asyncHandler from '../utils/asyncHandler.js';
 import Order from '../models/order.model.js';
 import Product from '../models/product.model.js';
+import { enqueueOrderJobs } from '../service/queue.service.js';
 
 const TAX_RATE = 0.08;
 const FREE_SHIPPING_THRESHOLD = 100;
@@ -60,6 +61,7 @@ const createOrder = asyncHandler(async (req, res) => {
     for (const item of items) {
         await Product.updateOne({ _id: item.product }, { $inc: { countInStock: -item.qty } });
     }
+    enqueueOrderJobs(order); // enqueue order confirmation + inventory sync jobs
 
     res.status(201).json(order);
 });

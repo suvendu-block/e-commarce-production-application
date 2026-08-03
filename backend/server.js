@@ -7,6 +7,7 @@ import productRoutes from './routes/product.routes.js';
 import orderRoutes from './routes/order.routes.js';
 import userRoutes from './routes/user.routes.js';
 import uploadRoutes from './routes/upload.routes.js';
+import { StartWorker } from './service/worker.service.js';
 
 
 
@@ -61,4 +62,5 @@ app.use(errorHandler);
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     connectDB();
+    StartWorker();
 })
