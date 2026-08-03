@@ -23,13 +23,13 @@ const getTransporter = () => {
 
 
 export const sendOrderConfirmationEmail = async (user, order) => {
-    if (process.env.NODE_ENV === 'test' || !process.env.EMAIL_HOST) return;
+    if (process.env.NODE_ENV === 'test' || !process.env.EMAIL_HOST) return null;
 
     try {
         const itemsHTML = order.orderItems
             .map(item => `<li>${item.name} - ${item.qty} x $${item.price}</li>`)
             .join('');
-        await getTransporter().sendMail({
+        const info = await getTransporter().sendMail({
             from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
             to: user.email,
             subject: `Order ${order._id} confirmation`,
@@ -40,8 +40,12 @@ export const sendOrderConfirmationEmail = async (user, order) => {
                 <p>Total: $${order.totalPrice}</p>
             `
         })
-        console.log(`Order confirmation email sent to ${user.email} for order ${order._id}`);
+        console.log(`Order confirmation email sent to ${user.email} for order ${order._id} (id: ${info.messageId})`);
+        const previewUrl = nodemailer.getTestMessageUrl(info);
+        if (previewUrl) console.log(`Email preview: ${previewUrl}`);
+        return info;
     } catch (error) {
         console.error(`Failed to send order confirmation email to ${user.email} for order ${order._id}:`, error);
+        return null;
     }
 }
