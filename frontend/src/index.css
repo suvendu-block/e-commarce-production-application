@@ -1,0 +1,258 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ══════════════════════════════════════════════════════════════
+   Nordstroma — editorial identity
+   Warm paper + ink monochrome, serif display with italic emphasis,
+   hairline rules instead of cards, sharp corners, underline inputs.
+   Reference language: high-end hospitality editorial (Grupo Hunan).
+   RGB triplets so Tailwind opacity modifiers work:
+   bg-accent/10 → rgb(var(--accent) / 0.1)
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  /* Paper + ink — the brand is monochrome */
+  --bg: 243 240 230;            /* #F3F0E6 warm paper        */
+  --paper: 250 247 239;         /* text on filled buttons    */
+  --surface: 247 244 234;       /* raised panels             */
+  --surface-2: 235 231 216;     /* hovers / wells            */
+  --surface-3: 224 219 200;
+  --ink: 20 19 15;              /* warm near-black           */
+  --muted: 96 91 79;
+  --faint: 140 133 115;
+  --line: 214 208 190;          /* hairline                  */
+
+  /* Accent == ink: the whole UI is monochrome, like the reference */
+  --accent: 20 19 15;
+  --accent-strong: 0 0 0;
+  --accent-soft: 236 232 217;
+  --accent-ring: 20 19 15;
+
+  /* Semantic hues — muted, warm-family, harmonise with paper */
+  --danger: 122 54 35;          /* brick                      */
+  --danger-soft: 238 222 214;
+  --success: 74 95 62;          /* olive                      */
+  --success-soft: 227 232 219;
+  --warn: 148 105 33;           /* ochre                      */
+  --warn-soft: 240 229 207;
+
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: 24 23 19;               /* warm charcoal              */
+  --paper: 24 23 19;
+  --surface: 29 28 23;
+  --surface-2: 36 34 27;
+  --surface-3: 45 42 33;
+  --ink: 240 237 226;           /* paper text                 */
+  --muted: 170 163 145;
+  --faint: 122 116 100;
+  --line: 66 62 52;
+
+  --accent: 240 237 226;
+  --accent-strong: 255 252 240;
+  --accent-soft: 38 36 30;
+  --accent-ring: 240 237 226;
+
+  --danger: 201 115 91;
+  --danger-soft: 63 36 28;
+  --success: 151 173 135;
+  --success-soft: 39 48 33;
+  --warn: 208 168 88;
+  --warn-soft: 60 47 22;
+
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-bg font-sans text-ink;
+  }
+
+  /* Serif display headings — normal weight, editorial */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif font-normal;
+    text-wrap: balance;
+  }
+
+  /* The italic-emphasis move (same family, true italics) */
+  em,
+  i {
+    font-family: inherit;
+    font-style: italic;
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 1px solid rgb(var(--accent));
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.2);
+  }
+}
+
+@layer components {
+  /* ── Buttons: sharp, uppercase, editorial ─────────────────── */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] transition-all duration-200 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40;
+  }
+  .btn-primary {
+    @apply btn bg-accent text-paper hover:bg-accent-strong;
+  }
+  .btn-outline {
+    @apply btn border border-ink/25 text-ink hover:border-ink hover:bg-accent/5;
+  }
+  .btn-danger {
+    @apply btn bg-danger text-paper hover:brightness-110;
+  }
+  .btn-ghost {
+    @apply btn text-muted hover:text-ink;
+  }
+
+  /* ── Forms: label above, underline input, error below ─────── */
+  .input {
+    @apply w-full rounded-none border-0 border-b border-line bg-transparent px-0 py-2.5 text-sm text-ink transition-colors placeholder:text-faint focus:border-ink focus:outline-none focus:ring-0;
+  }
+  .label {
+    @apply mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.22em] text-muted;
+  }
+  .field-error {
+    @apply mt-1.5 text-xs font-medium text-danger;
+  }
+
+  /* ── Panels: hairline boxes, sharp, no pill shapes ────────── */
+  .card {
+    @apply rounded-none border border-line bg-surface;
+  }
+  .card-pad {
+    @apply p-6 sm:p-8;
+  }
+
+  /* ── Chips → underline tabs ───────────────────────────────── */
+  .chip {
+    @apply inline-flex items-center gap-1.5 border-b px-1 pb-1.5 text-sm transition;
+  }
+
+  /* ── Status badges: rectangular, outlined ─────────────────── */
+  .badge {
+    @apply inline-flex items-center gap-1.5 border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em];
+  }
+  .badge-success {
+    @apply badge border-success/40 text-success;
+  }
+  .badge-danger {
+    @apply badge border-danger/40 text-danger;
+  }
+  .badge-warn {
+    @apply badge border-warn/50 text-warn;
+  }
+  .badge-muted {
+    @apply badge border-line text-muted;
+  }
+
+  /* ── Micro-labels ─────────────────────────────────────────── */
+  .kicker {
+    @apply text-[11px] uppercase tracking-[0.28em] text-faint;
+  }
+
+/* ── Long-arrow text link (“view more”) ───────────────────── */
+  .link-arrow {
+    @apply inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-ink;
+  }
+
+  /* ── Brand loader: letterspaced wordmark + hairline sweep ── */
+  .brand-loader {
+    animation: brand-fade 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite alternate;
+  }
+  .brand-line {
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: rgb(var(--line));
+    position: relative;
+    overflow: hidden;
+  }
+  .brand-line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgb(var(--ink));
+    transform-origin: left;
+    animation: brand-sweep 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  }
+  @keyframes brand-fade {
+    from { opacity: 0.55; }
+    to { opacity: 1; }
+  }
+  @keyframes brand-sweep {
+    from { transform: scaleX(0); }
+    55% { transform: scaleX(1); }
+    to { transform: scaleX(1); }
+  }
+}
+
+/* ── Full-screen overlay menu items (staggered entry) ───────── */
+.menu-item {
+  opacity: 0;
+  animation: menu-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Scroll reveal (transform/opacity only, no re-render) ───── */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hover arrow slide for link-arrow */
+.arrow-slide {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.group:hover .arrow-slide,
+a:hover > .arrow-slide {
+  transform: translateX(6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
