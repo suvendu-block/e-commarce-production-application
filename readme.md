@@ -315,6 +315,19 @@ The frontend also includes test files for utility functions and UI safety checks
 
 This project is currently intended for educational and personal project use. If you plan to distribute it publicly, add an appropriate license file and set the license in the package configuration.
 
+## Documentation
+
+Detailed developer docs are in the [`doc/`](./doc/) folder:
+
+- [Architecture](./doc/ARCHITECTURE.md) — system design, data flow, tech stack
+- [API Reference](./doc/API-REFERENCE.md) — all 22 REST endpoints with schemas
+- [Frontend](./doc/FRONTEND.md) — Redux store, routing, mock system, components
+- [Backend](./doc/BACKEND.md) — Express pipeline, middleware, services, queue
+- [Database](./doc/DATABASE.md) — Mongoose schemas (User, Product, Order)
+- [Development](./doc/DEVELOPMENT.md) — setup, scripts, testing, common issues
+- [Deployment](./doc/DEPLOYMENT.md) — Vercel + Render deployment guide
+- [Known Issues](./doc/KNOWN-ISSUES.md) — bugs, TODOs, technical debt
+
 ## Summary
 
 This application is a complete full-stack e-commerce solution with:
