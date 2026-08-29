@@ -326,7 +326,6 @@ Detailed developer docs are in the [`doc/`](./doc/) folder:
 - [Database](./doc/DATABASE.md) — Mongoose schemas (User, Product, Order)
 - [Development](./doc/DEVELOPMENT.md) — setup, scripts, testing, common issues
 - [Deployment](./doc/DEPLOYMENT.md) — Vercel + Render deployment guide
-- [Known Issues](./doc/KNOWN-ISSUES.md) — bugs, TODOs, technical debt
 
 ## Summary
 
