@@ -8,7 +8,7 @@ export const USE_MOCK = import.meta.env.VITE_USE_MOCK !== 'false';
 
 export const PAGE_SIZE = 10;
 
-export const PAYMENT_METHODS = ['Stripe', 'PayPal', 'COD'];
+export const PAYMENT_METHODS = ['COD'];
 
 export const CART_KEY = 'cartItems';
 export const CART_SHIPPING_KEY = 'shippingAddress';

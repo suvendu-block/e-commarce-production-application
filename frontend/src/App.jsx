@@ -18,6 +18,7 @@ const ShippingPage = lazy(() => import('./pages/checkout/ShippingPage'));
 const PaymentPage = lazy(() => import('./pages/checkout/PaymentPage'));
 const PlaceOrderPage = lazy(() => import('./pages/checkout/PlaceOrderPage'));
 const OrderPage = lazy(() => import('./pages/order/OrderPage'));
+const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage'));
 const ProductListPage = lazy(() => import('./pages/admin/ProductListPage'));
 const ProductEditPage = lazy(() => import('./pages/admin/ProductEditPage'));
 const UserListPage = lazy(() => import('./pages/admin/UserListPage'));
@@ -52,6 +53,7 @@ const App = () => (
 
           {/* Admin */}
           <Route element={<AdminRoute />}>
+            <Route path="/admin" element={<AdminDashboardPage />} />
             <Route path="/admin/products" element={<ProductListPage />} />
             <Route path="/admin/product/:id/edit" element={<ProductEditPage />} />
             <Route path="/admin/product/new" element={<ProductEditPage />} />

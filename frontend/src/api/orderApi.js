@@ -11,6 +11,7 @@ import {
   createOrder as createMockOrder,
   updateOrder as mockUpdateOrder,
   decrementStock,
+  clone,
 } from './mockData';
 
 const ordersForUser = (userId) => dbOrders.filter((o) => o.user === userId);
@@ -61,7 +62,9 @@ const mockCreateOrder = async ({ orderItems, shippingAddress, paymentMethod }, u
 
 const mockMyOrders = async (userId) => {
   await delay(350);
-  return ordersForUser(userId).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  return ordersForUser(userId)
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .map(clone);
 };
 
 const mockOrderById = async (id, user) => {
@@ -70,7 +73,7 @@ const mockOrderById = async (id, user) => {
   if (!order) mockError(404, 'Order not found');
   const isOwner = order.user === user._id;
   if (!isOwner && !user.isAdmin) mockError(403, 'Not authorized to view this order');
-  return JSON.parse(JSON.stringify(order));
+  return clone(order);
 };
 
 const mockPayOrder = async (id, user, paymentResult) => {
@@ -102,7 +105,7 @@ const mockAllOrders = async () => {
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .map((order) => {
       const user = findUserById(order.user);
-      return { ...order, userName: user ? user.name : 'Unknown' };
+      return { ...clone(order), userName: user ? user.name : 'Unknown' };
     });
 };
 

@@ -159,9 +159,12 @@ const HomePage = () => {
             Electronics, apparel and home essentials, chosen for craft and priced honestly.
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link to="/" className="btn-primary min-w-56 !bg-paper !text-ink hover:!bg-bg">
+            <a
+              href="#selected-pieces"
+              className="btn-primary min-w-56 !bg-paper !text-ink hover:!bg-bg"
+            >
               Shop the collection
-            </Link>
+            </a>
             <a
               href="#the-index"
               className="btn-outline min-w-56 !border-bg/50 !text-bg hover:!border-bg hover:!bg-bg/10"
@@ -267,13 +270,13 @@ const HomePage = () => {
       </section>
 
       {/* ── Selected pieces: asymmetric editorial grid ────────── */}
-      <section className="mx-auto max-w-[1400px] px-4 py-24 sm:px-6 md:py-32">
+      <section id="selected-pieces" className="mx-auto max-w-[1400px] px-4 py-24 sm:px-6 md:py-32 scroll-mt-16">
         <Reveal className="mb-10 flex items-end justify-between gap-6 md:mb-14">
           <h2 className="font-serif text-3xl text-ink md:text-4xl">Selected pieces</h2>
-          <Link to="/" className="link-arrow group shrink-0">
+          <a href="#the-index" className="link-arrow group shrink-0">
             View all
             <ArrowRight className="h-3.5 w-3.5 arrow-slide" aria-hidden="true" />
-          </Link>
+          </a>
         </Reveal>
 
         {top.loading ? (

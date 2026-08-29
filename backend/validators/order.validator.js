@@ -20,7 +20,7 @@ export const createOrderSchema = Joi.object({
         .min(1) // reject empty carts
         .required(),
     shippingAddress: shippingAddressSchema.required(),
-    paymentMethod: Joi.string().valid('Stripe', 'PayPal', 'COD').required(),
+    paymentMethod: Joi.string().valid('COD').required(),
 });
 
 // Payment provider callback details — all optional until a provider is integrated

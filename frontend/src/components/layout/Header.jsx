@@ -147,7 +147,7 @@ const Header = () => {
                       <User className="h-4 w-4" aria-hidden="true" /> Profile
                     </Link>
                     {user.isAdmin && (
-                      <Link to="/admin/products" role="menuitem" className={menuItem} onClick={closeAll}>
+                      <Link to="/admin" role="menuitem" className={menuItem} onClick={closeAll}>
                         <LayoutDashboard className="h-4 w-4" aria-hidden="true" /> Admin panel
                       </Link>
                     )}
@@ -247,7 +247,7 @@ const Header = () => {
                         Profile
                       </Link>
                       {user.isAdmin && (
-                        <Link to="/admin/products" onClick={closeAll} className="menu-item text-sm text-muted transition hover:text-ink" style={menuLink(9)}>
+                        <Link to="/admin" onClick={closeAll} className="menu-item text-sm text-muted transition hover:text-ink" style={menuLink(9)}>
                           Admin panel
                         </Link>
                       )}

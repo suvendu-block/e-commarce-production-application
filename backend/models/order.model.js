@@ -60,7 +60,7 @@ const orderSchema = mongoose.Schema({
     paymentMethod: {
         type: String,
         required: true,
-        enum: ['Stripe', 'PayPal', 'COD'],
+        enum: ['COD'],
     },
     paymentResult: {
         // filled in by the payment provider on success
